@@ -1,0 +1,466 @@
+\doxysection{Référence du fichier snake.\+c}
+\hypertarget{snake_8c}{}\label{snake_8c}\index{snake.c@{snake.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{snake_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}}~1
+\item 
+\#define \mbox{\hyperlink{snake_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}}~0
+\item 
+\#define \mbox{\hyperlink{snake_8c_acd0f9b88c35112b35f67d3cde4b2365c}{HAUT}}~\textquotesingle{}z\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_af625d3f3bc022848a558f2b18def5b15}{DROITE}}~\textquotesingle{}d\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_abd7bcdd3b14eec4414469f88f2bd8f12}{BAS}}~\textquotesingle{}s\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_af07f8bf974fdf76afd17f2b97ac15a22}{GAUCHE}}~\textquotesingle{}q\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_a1fc4c65b893fe1bc5fc4afa72e3c1a6d}{TAILLE\+\_\+\+SERPENT}}~10
+\item 
+\#define \mbox{\hyperlink{snake_8c_a717e1b831187df8c37fbdd08fa81cae0}{TAILLE\+\_\+\+MAX\+\_\+\+SERPENT}}~(\mbox{\hyperlink{snake_8c_a1fc4c65b893fe1bc5fc4afa72e3c1a6d}{TAILLE\+\_\+\+SERPENT}} + \mbox{\hyperlink{snake_8c_a394ef3c1f07e102f9c46fe3308d4a659}{OBJECTIF\+\_\+\+POMMES}})
+\item 
+\#define \mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}~80
+\item 
+\#define \mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}~40
+\item 
+\#define \mbox{\hyperlink{snake_8c_a9c1de00a050e306dbe6252bbb5771c4e}{COTE\+\_\+\+BORDURE}}~\textquotesingle{}\#\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_a6eb969c6062d9b1ea982bca54c1f1732}{POMME}}~\textquotesingle{}6\textquotesingle{}
+\item 
+\#define \mbox{\hyperlink{snake_8c_a3fa2d9e8a3ff5bc7ac576fda26265b44}{ACCELERATION}}~0.\+9
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+typedef char \mbox{\hyperlink{snake_8c_a8671f567faa50fca0b78b6aab269c478}{plateau\+Globale}}\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{snake_8c_aa294b49bfcc17cf4b490fb020e359851}{goto\+XY}} (int x, int y)
+\item 
+int \mbox{\hyperlink{snake_8c_ad5451da499ab9d3907da8dd7060ab677}{kbhit}} ()
+\item 
+void \mbox{\hyperlink{snake_8c_a61de8c71dbb95a7120f58064957f9aec}{disable\+Echo}} ()
+\item 
+void \mbox{\hyperlink{snake_8c_a2c742eced1c8bd5f0f6d42b13cacc651}{enable\+Echo}} ()
+\item 
+void \mbox{\hyperlink{snake_8c_acba1573a94ed488d9e14fdaaf32d9bc4}{afficher}} (int x, int y, char c)
+\begin{DoxyCompactList}\small\item\em Affiche un caractère à une position donnée dans le terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a4c792a17eb955a9e0fa6a033d335fc49}{effacer}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Efface un caractère à une position donnée dans le terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a6b40a43d7d55fe449c98a3a7fd6b6b00}{dessiner\+Serpent}} (int lesX\mbox{[}$\,$\mbox{]}, int lesY\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Dessine le serpent sur le plateau. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a131ab0610992317355b2e56d74e7cb35}{progresser}} (int lesX\mbox{[}$\,$\mbox{]}, int lesY\mbox{[}$\,$\mbox{]}, char direction, bool \texorpdfstring{$\ast$}{*}collision, bool \texorpdfstring{$\ast$}{*}pomme\+\_\+mangee)
+\begin{DoxyCompactList}\small\item\em Met à jour la position du serpent en fonction de la direction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a11dd4ed7990102abfc10772f2ddb4cc3}{init\+Plateau}} (char plateau\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Initialise le plateau de jeu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_ad56731da24eb34cf264fea3db463b33c}{dessiner\+Plateau}} (char plateau\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Affiche le plateau de jeu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a657b5f67361457093a363b2e5e5e8ae5}{placer\+Paves}} (char plateau\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Place des pavés (obstacles fixes) sur le plateau. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{snake_8c_a2ae6e8d345803177af75e878e2b30d68}{ajouter\+Pomme}} (char plateau\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Ajoute une pomme à une position aléatoire sur le plateau. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{snake_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Fonction principale du jeu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{snake_8c_a38d3bc945709cbe3fe0a05f337ec10d9}{STOP\+\_\+\+JEU}} = \textquotesingle{}a\textquotesingle{}
+\item 
+const char \mbox{\hyperlink{snake_8c_adb033a6add57b80ca03364c8b5665528}{CORPS}} = \textquotesingle{}X\textquotesingle{}
+\item 
+const char \mbox{\hyperlink{snake_8c_a835cf4156291cebe8b544aa4451a0f49}{TETE}} = \textquotesingle{}O\textquotesingle{}
+\item 
+const char \mbox{\hyperlink{snake_8c_a65e70a095fdc823063b2d115d50a391f}{VIDE}} = \textquotesingle{} \textquotesingle{}
+\item 
+const int \mbox{\hyperlink{snake_8c_aa6bf363f84d94618f16561ae092f2db0}{COORD\+\_\+\+DEPART\+\_\+\+X\+\_\+\+SERPENT}} = 40
+\item 
+const int \mbox{\hyperlink{snake_8c_afe3a372f3d3ca368c18235dd3c4fce71}{COORD\+\_\+\+DEPART\+\_\+\+Y\+\_\+\+SERPENT}} = 20
+\item 
+const int \mbox{\hyperlink{snake_8c_a9ae8050b81051735a66543522833525f}{VITESSE\+\_\+\+JEU}} = 150000
+\item 
+const int \mbox{\hyperlink{snake_8c_afae39120a367901eb27e47a2e7c829f2}{NOMBRES\+\_\+\+PAVES}} = 4
+\item 
+const int \mbox{\hyperlink{snake_8c_abd3828889d46df3368e792e4babf06c3}{TAILLE\+\_\+\+PAVE}} = 5
+\item 
+const int \mbox{\hyperlink{snake_8c_a394ef3c1f07e102f9c46fe3308d4a659}{OBJECTIF\+\_\+\+POMMES}} = 10
+\item 
+int \mbox{\hyperlink{snake_8c_a2971f17e034677862839f927422f40bc}{vitesse\+\_\+actuelle}}
+\item 
+int \mbox{\hyperlink{snake_8c_abacd592ec139c47ea430c8c3acbb3d81}{taille\+\_\+serpent}}
+\item 
+\mbox{\hyperlink{snake_8c_a8671f567faa50fca0b78b6aab269c478}{plateau\+Globale}} \mbox{\hyperlink{snake_8c_a4cd8447beff3fcd8300047b85f8a7702}{plateau\+Jeu}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentation des macros}
+\Hypertarget{snake_8c_a3fa2d9e8a3ff5bc7ac576fda26265b44}\index{snake.c@{snake.c}!ACCELERATION@{ACCELERATION}}
+\index{ACCELERATION@{ACCELERATION}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{ACCELERATION}{ACCELERATION}}
+{\footnotesize\ttfamily \label{snake_8c_a3fa2d9e8a3ff5bc7ac576fda26265b44} 
+\#define ACCELERATION~0.\+9}
+
+Valeur pour diminuer l\textquotesingle{}acceleration. \Hypertarget{snake_8c_abd7bcdd3b14eec4414469f88f2bd8f12}\index{snake.c@{snake.c}!BAS@{BAS}}
+\index{BAS@{BAS}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{BAS}{BAS}}
+{\footnotesize\ttfamily \label{snake_8c_abd7bcdd3b14eec4414469f88f2bd8f12} 
+\#define BAS~\textquotesingle{}s\textquotesingle{}}
+
+Touche pour déplacer le serpent vers le bas. \Hypertarget{snake_8c_a9c1de00a050e306dbe6252bbb5771c4e}\index{snake.c@{snake.c}!COTE\_BORDURE@{COTE\_BORDURE}}
+\index{COTE\_BORDURE@{COTE\_BORDURE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{COTE\_BORDURE}{COTE\_BORDURE}}
+{\footnotesize\ttfamily \label{snake_8c_a9c1de00a050e306dbe6252bbb5771c4e} 
+\#define COTE\+\_\+\+BORDURE~\textquotesingle{}\#\textquotesingle{}}
+
+Caractère utilisé pour afficher les bordures et pavés. \Hypertarget{snake_8c_af625d3f3bc022848a558f2b18def5b15}\index{snake.c@{snake.c}!DROITE@{DROITE}}
+\index{DROITE@{DROITE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{DROITE}{DROITE}}
+{\footnotesize\ttfamily \label{snake_8c_af625d3f3bc022848a558f2b18def5b15} 
+\#define DROITE~\textquotesingle{}d\textquotesingle{}}
+
+Touche pour déplacer le serpent à droite. \Hypertarget{snake_8c_aa93f0eb578d23995850d61f7d61c55c1}\index{snake.c@{snake.c}!FALSE@{FALSE}}
+\index{FALSE@{FALSE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{FALSE}{FALSE}}
+{\footnotesize\ttfamily \label{snake_8c_aa93f0eb578d23995850d61f7d61c55c1} 
+\#define FALSE~0}
+
+Variable pour faut. \Hypertarget{snake_8c_af07f8bf974fdf76afd17f2b97ac15a22}\index{snake.c@{snake.c}!GAUCHE@{GAUCHE}}
+\index{GAUCHE@{GAUCHE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{GAUCHE}{GAUCHE}}
+{\footnotesize\ttfamily \label{snake_8c_af07f8bf974fdf76afd17f2b97ac15a22} 
+\#define GAUCHE~\textquotesingle{}q\textquotesingle{}}
+
+Touche pour déplacer le serpent à gauche. \Hypertarget{snake_8c_acd0f9b88c35112b35f67d3cde4b2365c}\index{snake.c@{snake.c}!HAUT@{HAUT}}
+\index{HAUT@{HAUT}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{HAUT}{HAUT}}
+{\footnotesize\ttfamily \label{snake_8c_acd0f9b88c35112b35f67d3cde4b2365c} 
+\#define HAUT~\textquotesingle{}z\textquotesingle{}}
+
+Touche pour déplacer le serpent vers le haut. \Hypertarget{snake_8c_a29927d4a51e622dc39783f06f6197f14}\index{snake.c@{snake.c}!HAUTEUR\_PLATEAU@{HAUTEUR\_PLATEAU}}
+\index{HAUTEUR\_PLATEAU@{HAUTEUR\_PLATEAU}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{HAUTEUR\_PLATEAU}{HAUTEUR\_PLATEAU}}
+{\footnotesize\ttfamily \label{snake_8c_a29927d4a51e622dc39783f06f6197f14} 
+\#define HAUTEUR\+\_\+\+PLATEAU~40}
+
+Longueur maximale du plateau. \Hypertarget{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}\index{snake.c@{snake.c}!LARGEUR\_PLATEAU@{LARGEUR\_PLATEAU}}
+\index{LARGEUR\_PLATEAU@{LARGEUR\_PLATEAU}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{LARGEUR\_PLATEAU}{LARGEUR\_PLATEAU}}
+{\footnotesize\ttfamily \label{snake_8c_a9d01b9bb7c13f3d39b767df21342a371} 
+\#define LARGEUR\+\_\+\+PLATEAU~80}
+
+Largeur maximale du plateau. \Hypertarget{snake_8c_a6eb969c6062d9b1ea982bca54c1f1732}\index{snake.c@{snake.c}!POMME@{POMME}}
+\index{POMME@{POMME}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{POMME}{POMME}}
+{\footnotesize\ttfamily \label{snake_8c_a6eb969c6062d9b1ea982bca54c1f1732} 
+\#define POMME~\textquotesingle{}6\textquotesingle{}}
+
+Caractère qui représente une pomme. \Hypertarget{snake_8c_a717e1b831187df8c37fbdd08fa81cae0}\index{snake.c@{snake.c}!TAILLE\_MAX\_SERPENT@{TAILLE\_MAX\_SERPENT}}
+\index{TAILLE\_MAX\_SERPENT@{TAILLE\_MAX\_SERPENT}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{TAILLE\_MAX\_SERPENT}{TAILLE\_MAX\_SERPENT}}
+{\footnotesize\ttfamily \label{snake_8c_a717e1b831187df8c37fbdd08fa81cae0} 
+\#define TAILLE\+\_\+\+MAX\+\_\+\+SERPENT~(\mbox{\hyperlink{snake_8c_a1fc4c65b893fe1bc5fc4afa72e3c1a6d}{TAILLE\+\_\+\+SERPENT}} + \mbox{\hyperlink{snake_8c_a394ef3c1f07e102f9c46fe3308d4a659}{OBJECTIF\+\_\+\+POMMES}})}
+
+Définition du tableau plateau \Hypertarget{snake_8c_a1fc4c65b893fe1bc5fc4afa72e3c1a6d}\index{snake.c@{snake.c}!TAILLE\_SERPENT@{TAILLE\_SERPENT}}
+\index{TAILLE\_SERPENT@{TAILLE\_SERPENT}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{TAILLE\_SERPENT}{TAILLE\_SERPENT}}
+{\footnotesize\ttfamily \label{snake_8c_a1fc4c65b893fe1bc5fc4afa72e3c1a6d} 
+\#define TAILLE\+\_\+\+SERPENT~10}
+
+Taille du serpent. \Hypertarget{snake_8c_aa8cecfc5c5c054d2875c03e77b7be15d}\index{snake.c@{snake.c}!TRUE@{TRUE}}
+\index{TRUE@{TRUE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{TRUE}{TRUE}}
+{\footnotesize\ttfamily \label{snake_8c_aa8cecfc5c5c054d2875c03e77b7be15d} 
+\#define TRUE~1}
+
+Variable pour vrai. 
+
+\doxysubsection{Documentation des définitions de type}
+\Hypertarget{snake_8c_a8671f567faa50fca0b78b6aab269c478}\index{snake.c@{snake.c}!plateauGlobale@{plateauGlobale}}
+\index{plateauGlobale@{plateauGlobale}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{plateauGlobale}{plateauGlobale}}
+{\footnotesize\ttfamily \label{snake_8c_a8671f567faa50fca0b78b6aab269c478} 
+typedef char plateau\+Globale\mbox{[}\mbox{\hyperlink{snake_8c_a29927d4a51e622dc39783f06f6197f14}{HAUTEUR\+\_\+\+PLATEAU}}\mbox{]}\mbox{[}\mbox{\hyperlink{snake_8c_a9d01b9bb7c13f3d39b767df21342a371}{LARGEUR\+\_\+\+PLATEAU}}\mbox{]}}
+
+
+
+\doxysubsection{Documentation des fonctions}
+\Hypertarget{snake_8c_acba1573a94ed488d9e14fdaaf32d9bc4}\index{snake.c@{snake.c}!afficher@{afficher}}
+\index{afficher@{afficher}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{afficher()}{afficher()}}
+{\footnotesize\ttfamily \label{snake_8c_acba1573a94ed488d9e14fdaaf32d9bc4} 
+void afficher (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{char}]{c}{}\end{DoxyParamCaption})}
+
+
+
+Affiche un caractère à une position donnée dans le terminal. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em x} & Coordonnée en X (colonne). \\
+\hline
+{\em y} & Coordonnée en Y (ligne). \\
+\hline
+{\em c} & Le caractère à afficher. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_a2ae6e8d345803177af75e878e2b30d68}\index{snake.c@{snake.c}!ajouterPomme@{ajouterPomme}}
+\index{ajouterPomme@{ajouterPomme}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{ajouterPomme()}{ajouterPomme()}}
+{\footnotesize\ttfamily \label{snake_8c_a2ae6e8d345803177af75e878e2b30d68} 
+void ajouter\+Pomme (\begin{DoxyParamCaption}\item[{char}]{plateau}{\mbox{[}\+HAUTEUR\+\_\+\+PLATEAU\mbox{]}\mbox{[}\+LARGEUR\+\_\+\+PLATEAU\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Ajoute une pomme à une position aléatoire sur le plateau. 
+
+La pomme est placée uniquement sur une case vide.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em plateau} & Tableau 2D représentant le plateau. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_ad56731da24eb34cf264fea3db463b33c}\index{snake.c@{snake.c}!dessinerPlateau@{dessinerPlateau}}
+\index{dessinerPlateau@{dessinerPlateau}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{dessinerPlateau()}{dessinerPlateau()}}
+{\footnotesize\ttfamily \label{snake_8c_ad56731da24eb34cf264fea3db463b33c} 
+void dessiner\+Plateau (\begin{DoxyParamCaption}\item[{char}]{plateau}{\mbox{[}\+HAUTEUR\+\_\+\+PLATEAU\mbox{]}\mbox{[}\+LARGEUR\+\_\+\+PLATEAU\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Affiche le plateau de jeu. 
+
+Parcourt le tableau 2D du plateau et affiche chaque case dans le terminal.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em plateau} & Tableau 2D représentant le plateau. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_a6b40a43d7d55fe449c98a3a7fd6b6b00}\index{snake.c@{snake.c}!dessinerSerpent@{dessinerSerpent}}
+\index{dessinerSerpent@{dessinerSerpent}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{dessinerSerpent()}{dessinerSerpent()}}
+{\footnotesize\ttfamily \label{snake_8c_a6b40a43d7d55fe449c98a3a7fd6b6b00} 
+void dessiner\+Serpent (\begin{DoxyParamCaption}\item[{int}]{lesX}{\mbox{[}$\,$\mbox{]}, }\item[{int}]{lesY}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Dessine le serpent sur le plateau. 
+
+Affiche la tête et le corps du serpent selon leurs positions actuelles.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em lesX} & Tableau contenant les coordonnées X des segments du serpent. \\
+\hline
+{\em lesY} & Tableau contenant les coordonnées Y des segments du serpent. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_a61de8c71dbb95a7120f58064957f9aec}\index{snake.c@{snake.c}!disableEcho@{disableEcho}}
+\index{disableEcho@{disableEcho}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{disableEcho()}{disableEcho()}}
+{\footnotesize\ttfamily \label{snake_8c_a61de8c71dbb95a7120f58064957f9aec} 
+void disable\+Echo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{snake_8c_a4c792a17eb955a9e0fa6a033d335fc49}\index{snake.c@{snake.c}!effacer@{effacer}}
+\index{effacer@{effacer}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{effacer()}{effacer()}}
+{\footnotesize\ttfamily \label{snake_8c_a4c792a17eb955a9e0fa6a033d335fc49} 
+void effacer (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Efface un caractère à une position donnée dans le terminal. 
+
+Remplace le contenu de la position par un espace.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em x} & Coordonnée en X (colonne). \\
+\hline
+{\em y} & Coordonnée en Y (ligne). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_a2c742eced1c8bd5f0f6d42b13cacc651}\index{snake.c@{snake.c}!enableEcho@{enableEcho}}
+\index{enableEcho@{enableEcho}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{enableEcho()}{enableEcho()}}
+{\footnotesize\ttfamily \label{snake_8c_a2c742eced1c8bd5f0f6d42b13cacc651} 
+void enable\+Echo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{snake_8c_aa294b49bfcc17cf4b490fb020e359851}\index{snake.c@{snake.c}!gotoXY@{gotoXY}}
+\index{gotoXY@{gotoXY}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{gotoXY()}{gotoXY()}}
+{\footnotesize\ttfamily \label{snake_8c_aa294b49bfcc17cf4b490fb020e359851} 
+void goto\+XY (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+Fonctions et procédures donner ~\newline
+ \Hypertarget{snake_8c_a11dd4ed7990102abfc10772f2ddb4cc3}\index{snake.c@{snake.c}!initPlateau@{initPlateau}}
+\index{initPlateau@{initPlateau}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{initPlateau()}{initPlateau()}}
+{\footnotesize\ttfamily \label{snake_8c_a11dd4ed7990102abfc10772f2ddb4cc3} 
+void init\+Plateau (\begin{DoxyParamCaption}\item[{char}]{plateau}{\mbox{[}\+HAUTEUR\+\_\+\+PLATEAU\mbox{]}\mbox{[}\+LARGEUR\+\_\+\+PLATEAU\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Initialise le plateau de jeu. 
+
+Remplit le plateau avec des bordures et des espaces vides. Ajoute des ouvertures aux bordures.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em plateau} & Tableau 2D représentant le plateau. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_ad5451da499ab9d3907da8dd7060ab677}\index{snake.c@{snake.c}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{kbhit()}{kbhit()}}
+{\footnotesize\ttfamily \label{snake_8c_ad5451da499ab9d3907da8dd7060ab677} 
+int kbhit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{snake_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{snake.c@{snake.c}!main@{main}}
+\index{main@{main}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{snake_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Fonction principale du jeu. 
+
+Initialise le jeu, gère la boucle principale, les événements clavier, et les conditions de fin de jeu. Met à jour le plateau et le serpent à chaque itération.
+
+\begin{DoxyReturn}{Renvoie}
+Retourne EXIT\+\_\+\+SUCCESS après l\textquotesingle{}arrêt du jeu. 
+\end{DoxyReturn}
+\Hypertarget{snake_8c_a657b5f67361457093a363b2e5e5e8ae5}\index{snake.c@{snake.c}!placerPaves@{placerPaves}}
+\index{placerPaves@{placerPaves}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{placerPaves()}{placerPaves()}}
+{\footnotesize\ttfamily \label{snake_8c_a657b5f67361457093a363b2e5e5e8ae5} 
+void placer\+Paves (\begin{DoxyParamCaption}\item[{char}]{plateau}{\mbox{[}\+HAUTEUR\+\_\+\+PLATEAU\mbox{]}\mbox{[}\+LARGEUR\+\_\+\+PLATEAU\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Place des pavés (obstacles fixes) sur le plateau. 
+
+Les pavés sont placés aléatoirement, tout en respectant une distance minimale avec le serpent initial.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em plateau} & Tableau 2D représentant le plateau. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{snake_8c_a131ab0610992317355b2e56d74e7cb35}\index{snake.c@{snake.c}!progresser@{progresser}}
+\index{progresser@{progresser}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{progresser()}{progresser()}}
+{\footnotesize\ttfamily \label{snake_8c_a131ab0610992317355b2e56d74e7cb35} 
+void progresser (\begin{DoxyParamCaption}\item[{int}]{lesX}{\mbox{[}$\,$\mbox{]}, }\item[{int}]{lesY}{\mbox{[}$\,$\mbox{]}, }\item[{char}]{direction}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{collision}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{pomme\+\_\+mangee}{}\end{DoxyParamCaption})}
+
+
+
+Met à jour la position du serpent en fonction de la direction. 
+
+Gère les déplacements, détecte les collisions (obstacles, corps), et vérifie si une pomme a été mangée. Met à jour la position du plateau en conséquence.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em lesX} & Tableau contenant les coordonnées X des segments du serpent. \\
+\hline
+{\em lesY} & Tableau contenant les coordonnées Y des segments du serpent. \\
+\hline
+{\em direction} & Direction actuelle du serpent (\textquotesingle{}z\textquotesingle{}, \textquotesingle{}q\textquotesingle{}, \textquotesingle{}s\textquotesingle{}, \textquotesingle{}d\textquotesingle{}). \\
+\hline
+{\em collision} & Indicateur de collision (modifié si le serpent se heurte). \\
+\hline
+{\em pomme\+\_\+mangee} & Indicateur de pomme mangée (modifié si une pomme est mangée). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Documentation des variables}
+\Hypertarget{snake_8c_aa6bf363f84d94618f16561ae092f2db0}\index{snake.c@{snake.c}!COORD\_DEPART\_X\_SERPENT@{COORD\_DEPART\_X\_SERPENT}}
+\index{COORD\_DEPART\_X\_SERPENT@{COORD\_DEPART\_X\_SERPENT}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{COORD\_DEPART\_X\_SERPENT}{COORD\_DEPART\_X\_SERPENT}}
+{\footnotesize\ttfamily \label{snake_8c_aa6bf363f84d94618f16561ae092f2db0} 
+const int COORD\+\_\+\+DEPART\+\_\+\+X\+\_\+\+SERPENT = 40}
+
+Position de départ en X du serpent. \Hypertarget{snake_8c_afe3a372f3d3ca368c18235dd3c4fce71}\index{snake.c@{snake.c}!COORD\_DEPART\_Y\_SERPENT@{COORD\_DEPART\_Y\_SERPENT}}
+\index{COORD\_DEPART\_Y\_SERPENT@{COORD\_DEPART\_Y\_SERPENT}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{COORD\_DEPART\_Y\_SERPENT}{COORD\_DEPART\_Y\_SERPENT}}
+{\footnotesize\ttfamily \label{snake_8c_afe3a372f3d3ca368c18235dd3c4fce71} 
+const int COORD\+\_\+\+DEPART\+\_\+\+Y\+\_\+\+SERPENT = 20}
+
+Position de départ en Y du serpent. \Hypertarget{snake_8c_adb033a6add57b80ca03364c8b5665528}\index{snake.c@{snake.c}!CORPS@{CORPS}}
+\index{CORPS@{CORPS}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{CORPS}{CORPS}}
+{\footnotesize\ttfamily \label{snake_8c_adb033a6add57b80ca03364c8b5665528} 
+const char CORPS = \textquotesingle{}X\textquotesingle{}}
+
+Caractère qui représente le corps du serpent. \Hypertarget{snake_8c_afae39120a367901eb27e47a2e7c829f2}\index{snake.c@{snake.c}!NOMBRES\_PAVES@{NOMBRES\_PAVES}}
+\index{NOMBRES\_PAVES@{NOMBRES\_PAVES}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{NOMBRES\_PAVES}{NOMBRES\_PAVES}}
+{\footnotesize\ttfamily \label{snake_8c_afae39120a367901eb27e47a2e7c829f2} 
+const int NOMBRES\+\_\+\+PAVES = 4}
+
+Nombre de pavés à placer sur le plateau. \Hypertarget{snake_8c_a394ef3c1f07e102f9c46fe3308d4a659}\index{snake.c@{snake.c}!OBJECTIF\_POMMES@{OBJECTIF\_POMMES}}
+\index{OBJECTIF\_POMMES@{OBJECTIF\_POMMES}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{OBJECTIF\_POMMES}{OBJECTIF\_POMMES}}
+{\footnotesize\ttfamily \label{snake_8c_a394ef3c1f07e102f9c46fe3308d4a659} 
+const int OBJECTIF\+\_\+\+POMMES = 10}
+
+Nombre de pomme au total pour les manger. \Hypertarget{snake_8c_a4cd8447beff3fcd8300047b85f8a7702}\index{snake.c@{snake.c}!plateauJeu@{plateauJeu}}
+\index{plateauJeu@{plateauJeu}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{plateauJeu}{plateauJeu}}
+{\footnotesize\ttfamily \label{snake_8c_a4cd8447beff3fcd8300047b85f8a7702} 
+\mbox{\hyperlink{snake_8c_a8671f567faa50fca0b78b6aab269c478}{plateau\+Globale}} plateau\+Jeu}
+
+\Hypertarget{snake_8c_a38d3bc945709cbe3fe0a05f337ec10d9}\index{snake.c@{snake.c}!STOP\_JEU@{STOP\_JEU}}
+\index{STOP\_JEU@{STOP\_JEU}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{STOP\_JEU}{STOP\_JEU}}
+{\footnotesize\ttfamily \label{snake_8c_a38d3bc945709cbe3fe0a05f337ec10d9} 
+const char STOP\+\_\+\+JEU = \textquotesingle{}a\textquotesingle{}}
+
+Définitions des constantes Touche pour arrêter le jeu. \Hypertarget{snake_8c_abd3828889d46df3368e792e4babf06c3}\index{snake.c@{snake.c}!TAILLE\_PAVE@{TAILLE\_PAVE}}
+\index{TAILLE\_PAVE@{TAILLE\_PAVE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{TAILLE\_PAVE}{TAILLE\_PAVE}}
+{\footnotesize\ttfamily \label{snake_8c_abd3828889d46df3368e792e4babf06c3} 
+const int TAILLE\+\_\+\+PAVE = 5}
+
+Taille des pavés (carrés). \Hypertarget{snake_8c_abacd592ec139c47ea430c8c3acbb3d81}\index{snake.c@{snake.c}!taille\_serpent@{taille\_serpent}}
+\index{taille\_serpent@{taille\_serpent}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{taille\_serpent}{taille\_serpent}}
+{\footnotesize\ttfamily \label{snake_8c_abacd592ec139c47ea430c8c3acbb3d81} 
+int taille\+\_\+serpent}
+
+\Hypertarget{snake_8c_a835cf4156291cebe8b544aa4451a0f49}\index{snake.c@{snake.c}!TETE@{TETE}}
+\index{TETE@{TETE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{TETE}{TETE}}
+{\footnotesize\ttfamily \label{snake_8c_a835cf4156291cebe8b544aa4451a0f49} 
+const char TETE = \textquotesingle{}O\textquotesingle{}}
+
+Caractère qui représente la tête du serpent. \Hypertarget{snake_8c_a65e70a095fdc823063b2d115d50a391f}\index{snake.c@{snake.c}!VIDE@{VIDE}}
+\index{VIDE@{VIDE}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{VIDE}{VIDE}}
+{\footnotesize\ttfamily \label{snake_8c_a65e70a095fdc823063b2d115d50a391f} 
+const char VIDE = \textquotesingle{} \textquotesingle{}}
+
+Caractère qui représente une case vide. \Hypertarget{snake_8c_a2971f17e034677862839f927422f40bc}\index{snake.c@{snake.c}!vitesse\_actuelle@{vitesse\_actuelle}}
+\index{vitesse\_actuelle@{vitesse\_actuelle}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{vitesse\_actuelle}{vitesse\_actuelle}}
+{\footnotesize\ttfamily \label{snake_8c_a2971f17e034677862839f927422f40bc} 
+int vitesse\+\_\+actuelle}
+
+\Hypertarget{snake_8c_a9ae8050b81051735a66543522833525f}\index{snake.c@{snake.c}!VITESSE\_JEU@{VITESSE\_JEU}}
+\index{VITESSE\_JEU@{VITESSE\_JEU}!snake.c@{snake.c}}
+\doxysubsubsection{\texorpdfstring{VITESSE\_JEU}{VITESSE\_JEU}}
+{\footnotesize\ttfamily \label{snake_8c_a9ae8050b81051735a66543522833525f} 
+const int VITESSE\+\_\+\+JEU = 150000}
+
+Temporisation entre les déplacements en microsecondes. 
