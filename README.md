@@ -78,4 +78,4 @@ La **dernière version** est également accompagnée d'une **documentation gén�
 
 
 
-PS : Merci dougdoug pour le readme !!!
+PS : Merci [dougdoug](https://github.com/yannislechevere) pour le readme !!!
